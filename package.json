@@ -2,7 +2,7 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "a backend learning session",
-  "type":"module",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/index.js"
@@ -12,5 +12,9 @@
     "backend"
   ],
   "author": "Tamanna Sheikh",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5"
+  }
 }
