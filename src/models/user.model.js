@@ -47,35 +47,51 @@ const userSchema=new Schema({
 
 userSchema.pre("save",async function(next){
     if(!this.isModified("password")) return next();
-    this.password=bcrypt.hash(this.password,10)
+    this.password=await bcrypt.hash(this.password,10)
     next()
 })
 
-userSchema.methods.isPasswordCorrect=async function
-(password){
-    return await bcrypt.compare(string,this.password)
+userSchema.methods.isPasswordCorrect=async function(password){
+    return await bcrypt.compare(password,this.password)
 }
-
-userSchema.methods.generateAcessToken=function(){
-    jwt.sign({
+// JWT is a bearer token
+// access tokens are expired in a short span of time
+userSchema.methods.generateAccessToken=function(){
+    return jwt.sign({
         _id: this._id,
         email:this.email,
         username:this.username,
         fullname:this.fullname
     },
-process.env.ACESS_TOKEN_SECRET,
+process.env.ACCESS_TOKEN_SECRET,
 {
-    expiresIn:process.env.ACESS_TOKEN_EXPIRY
+    expiresIn:process.env.ACCESS_TOKEN_EXPIRY
 })
 }
-userSchema.methods.refreshAcessToken=function(){
-    jwt.sign({
+
+// refresh tokens are expired in a longer span of time
+userSchema.methods.refreshAccessToken=function(){
+    return jwt.sign({
         _id: this._id,
-      
     },
-process.env.REFRESH_TOKEN_SECRET,
-{
+    process.env.REFRESH_TOKEN_SECRET,
+    {
     expiresIn:process.env.REFRESH_TOKEN_EXPIRY
-})
+    })
 }
 export const User=mongoose.model("User",userSchema)
+
+
+// An access token is a digital asset, typically a JWT, facilitating seamless access to resources through 
+// OAuth. These tokens act as keys that allow users to access 
+// sensitive information without repeated login requests.
+
+
+// Refresh tokens extend the lifespan of an access token. Typically, they’re issued alongside access tokens, 
+// allowing additional access tokens to be granted when the live access token expires. They’re usually stored 
+// securely on the authorization server itself.Refresh tokens work with access tokens to facilitate long-lived
+// sessions without repeated logins.
+
+
+
+

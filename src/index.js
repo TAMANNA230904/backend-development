@@ -18,20 +18,6 @@ connectDB()
 })
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*import express from "express"
 const app=express()
 //using IIFE to immediately execute the fxn for connecting to database

@@ -4,15 +4,7 @@ const asyncHandler = (requestHandler) => {
     }
 }
 
-
 export { asyncHandler }
-
-
-
-
-
-
-
 
 //using try-catch
 // const asyncHandler=()=>{}
@@ -23,7 +15,7 @@ export { asyncHandler }
  //  try{
 //   await fn(err,req,res,next)}
 //   catch(err)=>{
-//   resizeBy.status(err.code || 504).json({
+//    res.status(err.code || 504).json({
 //     sucess: false,
 //     message:err.message
 //   })
